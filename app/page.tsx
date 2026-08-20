@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react'
 
-const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank']
+const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amansi Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
 const faqs = [
   ['Who is eligible for this service?', 'Our service is designed for CAGD workers with a steady monthly payslip. We review each application based on income, existing obligations, and the lender criteria.'],
   ['How much can I qualify for?', 'Your estimated qualification is based on your monthly affordability. The final amount is confirmed after a full review of your payslip and supporting documents.'],
@@ -42,6 +42,7 @@ export default function Page() {
   const [fees, setFees] = useState(0)
   const [submitted, setSubmitted] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' })
   const affordability = Math.max(0, deductions)
   const qualification = useMemo(() => {
     const baseAmount = deductions + (balances > 0 ? balances : 0)
@@ -57,6 +58,13 @@ export default function Page() {
     return roundedQualification * 0.85
   }, [deductions, balances])
   const takeHome = Math.max(0, qualification - balances)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const message = `New consultation request:%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}%0A%0ASent from Optimum Consult LTD website`
+    window.open(`https://wa.me/233257859442?text=${message}`, '_blank')
+    setSubmitted(true)
+  }
 
   return (
     <main>
@@ -85,7 +93,7 @@ export default function Page() {
 
       <section className="section partners"><div className="partner-copy"><div className="eyebrow">Our network</div><h2>Connected to the<br /><em>right people.</em></h2><p>We work with trusted financial institutions to help you explore options that fit your situation.</p></div><div className="lender-grid">{lenders.map((lender, index) => <div className="lender" key={lender}><span className="lender-icon">{index === 0 ? <Landmark /> : index === 1 ? <Banknote /> : <BarChart3 />}</span><strong>{lender}</strong><small>Financial partner</small></div>)}</div></section>
 
-      <section className="apply-section" id="apply"><div className="apply-card"><div className="apply-copy"><div className="eyebrow">Ready when you are</div><h2>Let&apos;s find your<br /><em>better number.</em></h2><p>Start with a confidential conversation. There&apos;s no obligation and no pressure to proceed.</p><div className="contact-line"><MessageCircle size={20} /><span><small>Prefer to speak to someone?</small><strong>Chat with a consultant</strong></span></div></div><form onSubmit={e => { e.preventDefault(); setSubmitted(true) }}><div className="form-row"><label>Full name<input required placeholder="Your name" /></label><label>Phone number<input required type="tel" placeholder="0257859442" /></label></div><label>Email address<input required type="email" placeholder="you@example.com" /></label><label>Tell us about your situation<textarea rows={3} placeholder="A little context helps us prepare..." /></label><label className="upload"><UploadCloud size={22} /><span><strong>Upload your latest payslip</strong><small>PDF, JPG or PNG · max 10MB</small></span><input type="file" accept=".pdf,.jpg,.jpeg,.png" /></label><button className="button button-primary" type="submit">{submitted ? 'Request received' : 'Request a confidential review'} <ArrowRight size={17} /></button>{submitted && <p className="success-message"><Check size={15} /> Thank you. A consultant will be in touch shortly.</p>}</form></div></section>
+      <section className="apply-section" id="apply"><div className="apply-card"><div className="apply-copy"><div className="eyebrow">Ready when you are</div><h2>Let&apos;s find your<br /><em>better number.</em></h2><p>Start with a confidential conversation. There&apos;s no obligation and no pressure to proceed.</p><div className="contact-line"><MessageCircle size={20} /><span><small>Prefer to speak to someone?</small><strong>Chat with a consultant</strong></span></div></div><form onSubmit={handleSubmit}><div className="form-row"><label>Full name<input required placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></label><label>Phone number<input required type="tel" placeholder="0257859442" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} /></label></div><label>Email address<input required type="email" placeholder="you@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></label><label>Tell us about your situation<textarea rows={3} placeholder="A little context helps us prepare..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></label><label className="upload"><UploadCloud size={22} /><span><strong>Upload your latest payslip</strong><small>PDF, JPG or PNG · max 10MB</small></span><input type="file" accept=".pdf,.jpg,.jpeg,.png" /></label><button className="button button-primary" type="submit">{submitted ? 'Request received' : 'Request a confidential review'} <ArrowRight size={17} /></button>{submitted && <p className="success-message"><Check size={15} /> Thank you. A consultant will be in touch shortly.</p>}</form></div></section>
 
       <section className="section faqs" id="faqs"><div className="section-intro"><div className="eyebrow">Questions, answered</div><h2>Good decisions<br /><em>start with clarity.</em></h2></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? 'faq is-open' : 'faq'} key={question}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span>{openFaq === index ? <Minus size={19} /> : <ChevronDown size={19} />}</button>{openFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
