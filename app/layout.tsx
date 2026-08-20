@@ -1,0 +1,18 @@
+import { Analytics } from '@vercel/analytics/next'
+import type { Metadata, Viewport } from 'next'
+import { Fraunces, Inter } from 'next/font/google'
+import './globals.css'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces' })
+
+export const metadata: Metadata = {
+  title: 'Optimum Consult LTD | Clearer financial decisions',
+  description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.'
+}
+
+export const viewport: Viewport = { colorScheme: 'light', themeColor: '#f6f5ef' }
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" className="bg-background"><body className={`${inter.variable} ${fraunces.variable} antialiased`}>{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+}
