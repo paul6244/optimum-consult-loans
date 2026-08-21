@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
-import { Bot, MessageCircle, RotateCcw, Send, ShieldCheck, Sparkles, X } from 'lucide-react'
+import { Bot, MessageCircle, Phone, RotateCcw, Send, ShieldCheck, Sparkles, X } from 'lucide-react'
 
 const starters = ['How does consolidation work?', 'What documents do I need?', 'Can I qualify with existing loans?']
 
@@ -34,6 +34,7 @@ export function ChatWidget() {
             <div className="chat-avatar"><Bot size={18} /></div>
             <div><strong>Paul</strong><span><i /> AI assistant</span></div>
             <div className="chat-header-actions">
+              <a href="tel:0257859442" className="chat-call" aria-label="Call us" title="Call us"><Phone size={16} /></a>
               {messages.length > 0 && <button className="chat-new-chat" onClick={startNewChat} aria-label="Start new chat" title="New chat"><RotateCcw size={16} /></button>}
               <button className="chat-close" onClick={() => setOpen(false)} aria-label="Close chat"><X size={18} /></button>
             </div>
