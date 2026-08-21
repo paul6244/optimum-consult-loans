@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ChatWidget } from '@/components/chat-widget'
 import {
   ArrowRight,
@@ -23,6 +23,12 @@ import {
 } from 'lucide-react'
 
 const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amansi Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
+const rotatingMessages = [
+  'Less stress',
+  'More freedom',
+  'Better choices',
+  'Clearer path'
+]
 const faqs = [
   ['Who is eligible for this service?', 'Our service is designed for Controller & Accountant-General&apos;s Department (CAGD) workers with a steady monthly payslip. We review each application based on income, existing obligations, and the lender criteria.'],
   ['How much can I qualify for?', 'Your estimated qualification is based on your monthly affordability. The final amount is confirmed after a full review of your payslip and supporting documents.'],
@@ -43,6 +49,14 @@ export default function Page() {
   const [submitted, setSubmitted] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' })
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentMessageIndex(prev => (prev + 1) % rotatingMessages.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
   const affordability = Math.max(0, deductions)
   const qualification = useMemo(() => {
     const baseAmount = deductions + (balances > 0 ? balances : 0)
@@ -79,7 +93,7 @@ export default function Page() {
       </header>
 
       <section className="hero" id="home">
-        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15} /> A clearer way forward</div><h1>More cash in your hands.<br /><em>Less stress</em> on your payslip.</h1><p>We help Controller & Accountant-General&apos;s Department (CAGD) workers consolidate their loans, understand their options, and take home more each month.</p><div className="hero-actions"><a href="#estimator" className="button button-primary">Estimate my take-home <ArrowRight size={18} /></a><a href="#how-it-works" className="text-link">See how it works <ArrowRight size={16} /></a></div><div className="trust-row"><div className="avatar-stack"><span>EA</span><span>KO</span><span>MA</span></div><span>Join 2,000+ workers making<br />smarter money decisions</span></div></div>
+        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15} /> A clearer way forward</div><h1>More cash in your hands.<br /><em className="rotating-text">{rotatingMessages[currentMessageIndex]}</em> on your payslip.</h1><p>We help Controller & Accountant-General&apos;s Department (CAGD) workers consolidate their loans, understand their options, and take home more each month.</p><div className="hero-actions"><a href="#estimator" className="button button-primary">Estimate my take-home <ArrowRight size={18} /></a><a href="#how-it-works" className="text-link">See how it works <ArrowRight size={16} /></a></div><div className="trust-row"><div className="avatar-stack"><span>EA</span><span>KO</span><span>MA</span></div><span>Join 2,000+ workers making<br />smarter money decisions</span></div></div>
         <div className="hero-art"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="document-card"><div className="document-head"><span className="mini-logo"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="32" height="32" /></span><span>MONTHLY STATEMENT</span><span className="status-dot" /></div><div className="document-line wide" /><div className="document-line" /><div className="document-amount">GHS 8,420.00</div><div className="document-label">Net monthly income</div><div className="document-chart"><span /><span /><span /><span /><span /><span /><span /></div></div><div className="float-note"><BadgeCheck size={18} /><div><strong>Option found</strong><small>Tailored to your payslip</small></div></div><div className="sun-stamp">Simple<br />. Secure<br />. Clear.</div></div>
       </section>
 

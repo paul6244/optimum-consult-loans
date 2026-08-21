@@ -41,7 +41,7 @@ export function ChatWidget() {
           </div>
           <div className="chat-messages" aria-live="polite">
             {messages.length === 0 && <div className="chat-welcome"><div className="welcome-icon"><Sparkles size={18} /></div><p>Hello! I'm Paul, your AI assistant for Optimum Consult LTD. How can I assist you today? Are you a CAGD worker in Ghana looking for financial guidance or help with loan consolidation?</p><div className="starter-list">{starters.map(starter => <button key={starter} onClick={() => submit(starter)}>{starter}</button>)}</div></div>}
-            {messages.map(message => <div className={message.role === 'user' ? 'chat-message user' : 'chat-message assistant'} key={message.id}>{message.parts.map((part, index) => part.type === 'text' ? <span key={index}>{part.text}</span> : null)}</div>)}
+            {messages.map((message, index) => <div className={message.role === 'user' ? 'chat-message user' : 'chat-message assistant'} key={message.id} style={{ animationDelay: `${index * 0.1}s` }}>{message.parts.map((part, index) => part.type === 'text' ? <span key={index}>{part.text}</span> : null)}</div>)}
             {busy && <div className="chat-message assistant typing"><span /><span /><span /></div>}
             {error && <div className="chat-error">Something went wrong. Please try again or speak with a consultant.</div>}
           </div>
