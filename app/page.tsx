@@ -24,10 +24,10 @@ import {
 
 const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amansi Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
 const rotatingMessages = [
-  'Less stress',
-  'More freedom',
-  'Better choices',
-  'Clearer path'
+  'Less debt',
+  'More savings',
+  'Better future',
+  'Clearer goals'
 ]
 const faqs = [
   ['Who is eligible for this service?', 'Our service is designed for Controller & Accountant-General&apos;s Department (CAGD) workers with a steady monthly payslip. We review each application based on income, existing obligations, and the lender criteria.'],
