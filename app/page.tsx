@@ -46,10 +46,12 @@ export default function Page() {
   const [deductions, setDeductions] = useState(0)
   const [balances, setBalances] = useState(0)
   const [fees, setFees] = useState(0)
+  const [calculatorError, setCalculatorError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' })
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+  const [formError, setFormError] = useState('')
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,25 +61,60 @@ export default function Page() {
   }, [])
   const affordability = Math.max(0, deductions)
   const qualification = useMemo(() => {
-    const baseAmount = deductions + (balances > 0 ? balances : 0)
-    const baseQualification = baseAmount / 0.0244
-    const thousands = Math.floor(baseQualification / 1000)
-    const remainder = baseQualification % 1000
-    let roundedQualification
-    if (remainder > 501) {
-      roundedQualification = (thousands * 1000) + 500
-    } else {
-      roundedQualification = thousands * 1000
+    try {
+      if (salary < 0 || deductions < 0 || balances < 0 || fees < 0) {
+        setCalculatorError('Values cannot be negative')
+        return 0
+      }
+      
+      if (salary > 1000000 || deductions > 1000000 || balances > 1000000) {
+        setCalculatorError('Please enter reasonable values')
+        return 0
+      }
+      
+      setCalculatorError('')
+      const baseAmount = deductions + (balances > 0 ? balances : 0)
+      const baseQualification = baseAmount / 0.0244
+      const thousands = Math.floor(baseQualification / 1000)
+      const remainder = baseQualification % 1000
+      let roundedQualification
+      if (remainder > 501) {
+        roundedQualification = (thousands * 1000) + 500
+      } else {
+        roundedQualification = thousands * 1000
+      }
+      return roundedQualification * 0.85
+    } catch (error) {
+      setCalculatorError('Calculation error. Please check your values.')
+      console.error('Calculator error:', error)
+      return 0
     }
-    return roundedQualification * 0.85
-  }, [deductions, balances])
+  }, [deductions, balances, salary, fees])
   const takeHome = Math.max(0, qualification - balances)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const message = `New consultation request:%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}%0A%0ASent from Optimum Consult LTD website`
-    window.open(`https://wa.me/233257859442?text=${message}`, '_blank')
-    setSubmitted(true)
+    setFormError('')
+    
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError('Please fill in all fields')
+      return
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setFormError('Please enter a valid email address')
+      return
+    }
+    
+    try {
+      const message = `New consultation request:%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}%0A%0ASent from Optimum Consult LTD website`
+      window.open(`https://wa.me/233257859442?text=${message}`, '_blank')
+      setSubmitted(true)
+    } catch (error) {
+      setFormError('Failed to open WhatsApp. Please try again or call us directly.')
+      console.error('Form submission error:', error)
+    }
   }
 
   return (
@@ -103,11 +140,11 @@ export default function Page() {
 
       <section className="section process" id="how-it-works"><div className="section-intro centered"><div className="eyebrow">The process</div><h2>From payslip to <em>peace of mind.</em></h2><p>No jargon. No pressure. Just four clear steps to a better understanding of your options.</p></div><div className="steps"><div><span>01</span><FileText /><h3>Share your details</h3><p>Tell us a little about your income and current obligations.</p></div><div><span>02</span><BarChart3 /><h3>We review</h3><p>Our team studies your payslip and finds the right path.</p></div><div><span>03</span><Landmark /><h3>See your options</h3><p>We explain suitable offers clearly, without the fine print.</p></div><div><span>04</span><ShieldCheck /><h3>Move forward</h3><p>Choose what works for you. We support your application.</p></div></div></section>
 
-      <section className="estimator-section" id="estimator"><div className="estimator-card"><div className="estimator-header"><div><div className="eyebrow">Quick estimate</div><h2>What could your new<br /><em>take-home look like?</em></h2></div><span className="secure-chip"><ShieldCheck size={14} /> Private & secure</span></div><div className="estimator-body"><div className="fields"><label>Gross salary<input type="number" min="0" placeholder="0.00" onChange={e => setSalary(Number(e.target.value))} /><span>GHS</span></label><label>Total deductions of the loans you want to pay off<input type="number" min="0" placeholder="0.00" onChange={e => setDeductions(Number(e.target.value))} /><span>GHS</span></label><div className="optional-title">Optional details <span>helps us refine your estimate</span></div><label>Affordability<input type="number" min="0" placeholder="0.00" onChange={e => setBalances(Number(e.target.value))} /><span>GHS</span></label></div><div className="result-panel"><div className="result-label">Estimated qualification</div><div className="result-value">{money(qualification)}</div><p><Check size={15} /> This is an estimate, not a guarantee. We&apos;ll confirm the details with you.</p><a className="button button-light" href="#apply">Get my personalised review <ArrowRight size={17} /></a></div></div></div></section>
+      <section className="estimator-section" id="estimator"><div className="estimator-card"><div className="estimator-header"><div><div className="eyebrow">Quick estimate</div><h2>What could your new<br /><em>take-home look like?</em></h2></div><span className="secure-chip"><ShieldCheck size={14} /> Private & secure</span></div><div className="estimator-body"><div className="fields"><label>Gross salary<input type="number" min="0" placeholder="0.00" onChange={e => setSalary(Number(e.target.value))} /><span>GHS</span></label><label>Total deductions of the loans you want to pay off<input type="number" min="0" placeholder="0.00" onChange={e => setDeductions(Number(e.target.value))} /><span>GHS</span></label><div className="optional-title">Optional details <span>helps us refine your estimate</span></div><label>Affordability<input type="number" min="0" placeholder="0.00" onChange={e => setBalances(Number(e.target.value))} /><span>GHS</span></label></div><div className="result-panel">{calculatorError && <p className="error-message">{calculatorError}</p>}<div className="result-label">Estimated qualification</div><div className="result-value">{money(qualification)}</div><p><Check size={15} /> This is an estimate, not a guarantee. We&apos;ll confirm the details with you.</p><a className="button button-light" href="#apply">Get my personalised review <ArrowRight size={17} /></a></div></div></div></section>
 
       <section className="section partners"><div className="partner-copy"><div className="eyebrow">Our network</div><h2>Connected to the<br /><em>right people.</em></h2><p>We work with trusted financial institutions to help you explore options that fit your situation.</p></div><div className="lender-grid">{lenders.map((lender, index) => <div className="lender" key={lender}><span className="lender-icon">{index === 0 ? <Landmark /> : index === 1 ? <Banknote /> : <BarChart3 />}</span><strong>{lender}</strong><small>Financial partner</small></div>)}</div></section>
 
-      <section className="apply-section" id="apply"><div className="apply-card"><div className="apply-copy"><div className="eyebrow">Ready when you are</div><h2>Let&apos;s find your<br /><em>better number.</em></h2><p>Start with a confidential conversation. There&apos;s no obligation and no pressure to proceed.</p><div className="contact-line"><MessageCircle size={20} /><span><small>Prefer to speak to someone?</small><strong>Chat with a consultant</strong></span></div></div><form onSubmit={handleSubmit}><div className="form-row"><label>Full name<input required placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></label><label>Phone number<input required type="tel" placeholder="0257859442" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} /></label></div><label>Email address<input required type="email" placeholder="you@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></label><label>Tell us about your situation<textarea rows={3} placeholder="A little context helps us prepare..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></label><button className="button button-primary" type="submit">{submitted ? 'Request received' : 'Request a confidential review'} <ArrowRight size={17} /></button>{submitted && <p className="success-message"><Check size={15} /> Thank you. A consultant will be in touch shortly.</p>}</form></div></section>
+      <section className="apply-section" id="apply"><div className="apply-card"><div className="apply-copy"><div className="eyebrow">Ready when you are</div><h2>Let&apos;s find your<br /><em>better number.</em></h2><p>Start with a confidential conversation. There&apos;s no obligation and no pressure to proceed.</p><div className="contact-line"><MessageCircle size={20} /><span><small>Prefer to speak to someone?</small><strong>Chat with a consultant</strong></span></div></div><form onSubmit={handleSubmit}><div className="form-row"><label>Full name<input required placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></label><label>Phone number<input required type="tel" placeholder="0257859442" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} /></label></div><label>Email address<input required type="email" placeholder="you@example.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></label><label>Tell us about your situation<textarea rows={3} placeholder="A little context helps us prepare..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} /></label>{formError && <p className="error-message">{formError}</p>}<button className="button button-primary" type="submit">{submitted ? 'Request received' : 'Request a confidential review'} <ArrowRight size={17} /></button>{submitted && <p className="success-message"><Check size={15} /> Thank you. A consultant will be in touch shortly.</p>}</form></div></section>
 
       <section className="section faqs" id="faqs"><div className="section-intro"><div className="eyebrow">Questions, answered</div><h2>Good decisions<br /><em>start with clarity.</em></h2></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? 'faq is-open' : 'faq'} key={question}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span>{openFaq === index ? <Minus size={19} /> : <ChevronDown size={19} />}</button>{openFaq === index && <p>{answer}</p>}</div>)}</div></section>
 

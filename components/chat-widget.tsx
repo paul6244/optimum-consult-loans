@@ -10,16 +10,27 @@ const starters = ['How does consolidation work?', 'What documents do I need?', '
 export function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [localError, setLocalError] = useState('')
   const { messages, sendMessage, status, error, setMessages } = useChat({
     transport: new DefaultChatTransport({ api: '/api/chat' }),
+    onError: (error) => {
+      console.error('Chat error:', error)
+      setLocalError('Connection error. Please try again or call 0257859442.')
+    }
   })
   const busy = status === 'submitted' || status === 'streaming'
 
   function submit(text: string) {
     const clean = text.trim()
     if (!clean || busy) return
-    sendMessage({ text: clean })
-    setInput('')
+    setLocalError('')
+    try {
+      sendMessage({ text: clean })
+      setInput('')
+    } catch (error) {
+      setLocalError('Failed to send message. Please try again.')
+      console.error('Send message error:', error)
+    }
   }
 
   function startNewChat() {
@@ -43,6 +54,7 @@ export function ChatWidget() {
             {messages.length === 0 && <div className="chat-welcome"><div className="welcome-icon"><Sparkles size={18} /></div><p>Hello! I'm Paul, your AI assistant for Optimum Consult LTD. How can I assist you today? Are you a CAGD worker in Ghana looking for financial guidance or help with loan consolidation?</p><div className="starter-list">{starters.map(starter => <button key={starter} onClick={() => submit(starter)}>{starter}</button>)}</div></div>}
             {messages.map((message, index) => <div className={message.role === 'user' ? 'chat-message user' : 'chat-message assistant'} key={message.id} style={{ animationDelay: `${index * 0.1}s` }}>{message.parts.map((part, index) => part.type === 'text' ? <span key={index}>{part.text}</span> : null)}</div>)}
             {busy && <div className="chat-message assistant typing"><span /><span /><span /></div>}
+            {localError && <div className="chat-error">{localError}</div>}
             {error && <div className="chat-error">Something went wrong. Please try again or speak with a consultant.</div>}
           </div>
           <form className="chat-form" onSubmit={event => { event.preventDefault(); submit(input) }}>
