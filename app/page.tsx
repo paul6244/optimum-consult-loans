@@ -133,6 +133,19 @@ export default function Page() {
         <div className="hero-art"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="document-card"><div className="document-head"><span className="mini-logo"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="32" height="32" /></span><span>MONTHLY STATEMENT</span><span className="status-dot" /></div><div className="document-line wide" /><div className="document-line" /><div className="document-amount">GHS 8,420.00</div><div className="document-label">Net monthly income</div><div className="document-chart"><span /><span /><span /><span /><span /><span /><span /></div></div><div className="float-note"><BadgeCheck size={18} /><div><strong>Option found</strong><small>Tailored to your payslip</small></div></div><div className="sun-stamp">Simple<br />. Secure<br />. Clear.</div></div>
       </section>
 
+      <section className="attention-banner">
+        <div className="attention-content">
+          <div className="attention-question">How would you feel?</div>
+          <div className="attention-subtitle">If you could...</div>
+          <div className="attention-list">
+            <div className="attention-item"><BadgeCheck size={20} /> Pay off all expensive loans on your payslip</div>
+            <div className="attention-item"><BadgeCheck size={20} /> Restructure the deductions on your payslip</div>
+            <div className="attention-item"><BadgeCheck size={20} /> Increase your net salary while you get money home</div>
+          </div>
+          <a href="#estimator" className="button button-primary attention-cta">See what's possible <ArrowRight size={18} /></a>
+        </div>
+      </section>
+
       <section className="proof-strip"><div><strong>GHS 45M+</strong><span>Loans reviewed</span></div><div><strong>2,000+</strong><span>Workers supported</span></div><div><strong>14</strong><span>Trusted bank partners</span></div><div><strong>100%</strong><span>Confidential process</span></div></section>
 
       <section className="section services" id="services"><div className="section-intro"><div className="eyebrow">What we do</div><h2>Your finances,<br /><em>made simpler.</em></h2><p>One conversation can change how you feel about your payslip. Our team brings clarity to the numbers and confidence to your next step.</p></div><div className="service-grid"><article className="service-card featured"><div className="icon-box"><Sparkles /></div><h3>Instant loan</h3><p>Your remaining afford for the month shall qualify you for a loan amount of your choice with corresponding duration and deduction based on the affordability.</p><a href="#apply">Get instant loan <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><Banknote /></div><h3>Loan consolidation</h3><p>Combine multiple repayments into one manageable plan, potentially freeing up more cash every month.</p><a href="#estimator">Explore this option <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><ArrowRight /></div><h3>Salary Account switch</h3><p>Get your internal loans in salary account paid off with the loans on your payslip, freeing up your affordability and increasing your net salary while changing the bank for your salary account.</p><a href="#apply">Switch account <ArrowRight size={15} /></a></article></div></section>
