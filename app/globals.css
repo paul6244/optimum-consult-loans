@@ -59,3 +59,27 @@ footer { background: #192720; color: #eef4ed; padding: 55px 8vw 20px; }.footer-m
     touch-action: manipulation;
   }
 }
+
+/* Android Chrome fixes */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  input, textarea, button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  button, a {
+    touch-action: manipulation;
+  }
+  
+  .chat-panel {
+    overscroll-behavior: contain;
+  }
+  
+  .chat-messages {
+    overscroll-behavior: contain;
+  }
+}
