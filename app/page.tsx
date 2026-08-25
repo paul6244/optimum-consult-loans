@@ -16,13 +16,15 @@ import {
   MessageCircle,
   Minus,
   Phone,
+  RefreshCw,
   ShieldCheck,
   Sparkles,
   UploadCloud,
   X,
+  Zap,
 } from 'lucide-react'
 
-const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amansi Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
+const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amanse Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
 const rotatingMessages = [
   'Less debt',
   'More savings',
@@ -116,11 +118,11 @@ export default function Page() {
 
   return (
     <main>
-      <div className="topline"><span>Trusted guidance for Controller & Accountant-General&apos;s Department (CAGD) workers</span><span className="topline-right"><Phone size={14} /> 0257859442</span></div>
+      <div className="topline"><span>Trusted guidance for Controller & Accountant-General&apos;s Department (CAGD) workers</span><span className="topline-right"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a></span></div>
       <header className="site-header">
         <a href="#home" className="brand" aria-label="Optimum Consult LTD home"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a>
         <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-label="Main navigation">
-          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="#services" onClick={() => setMenuOpen(false)}>Our services</a><a href="#faqs" onClick={() => setMenuOpen(false)}>FAQs</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/services" onClick={() => setMenuOpen(false)}>Our services</a><a href="#faqs" onClick={() => setMenuOpen(false)}>FAQs</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </nav>
         <a className="header-cta" href="#apply">Check your options <ArrowRight size={16} /></a>
         <button className="menu-button" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
@@ -133,7 +135,7 @@ export default function Page() {
 
       <section className="proof-strip"><div><strong>GHS 45M+</strong><span>Loans reviewed</span></div><div><strong>2,000+</strong><span>Workers supported</span></div><div><strong>14</strong><span>Trusted bank partners</span></div><div><strong>100%</strong><span>Confidential process</span></div></section>
 
-      <section className="section services" id="services"><div className="section-intro"><div className="eyebrow">What we do</div><h2>Your finances,<br /><em>made simpler.</em></h2><p>One conversation can change how you feel about your payslip. Our team brings clarity to the numbers and confidence to your next step.</p></div><div className="service-grid"><article className="service-card featured"><div className="icon-box"><Banknote /></div><h3>Loan consolidation</h3><p>Combine multiple repayments into one manageable plan, potentially freeing up more cash every month.</p><a href="#estimator">Explore this option <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><BarChart3 /></div><h3>Payslip assessment</h3><p>Get a clear, honest view of what your income can support before you make a decision.</p><a href="#estimator">Check affordability <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><ClipboardCheck /></div><h3>Application support</h3><p>From documents to submission, we stay with you and keep the process easy to follow.</p><a href="#apply">Start an application <ArrowRight size={15} /></a></article></div></section>
+      <section className="section services" id="services"><div className="section-intro"><div className="eyebrow">What we do</div><h2>Your finances,<br /><em>made simpler.</em></h2><p>One conversation can change how you feel about your payslip. Our team brings clarity to the numbers and confidence to your next step.</p></div><div className="service-grid"><article className="service-card featured"><div className="icon-box"><Sparkles /></div><h3>Instant loan</h3><p>Your remaining afford for the month shall qualify you for a loan amount of your choice with corresponding duration and deduction based on the affordability.</p><a href="#apply">Get instant loan <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><Banknote /></div><h3>Loan consolidation</h3><p>Combine multiple repayments into one manageable plan, potentially freeing up more cash every month.</p><a href="#estimator">Explore this option <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><ArrowRight /></div><h3>Salary Account switch</h3><p>Get your internal loans in salary account paid off with the loans on your payslip, freeing up your affordability and increasing your net salary while changing the bank for your salary account.</p><a href="#apply">Switch account <ArrowRight size={15} /></a></article></div></section>
 
       <section className="section process" id="how-it-works"><div className="section-intro centered"><div className="eyebrow">The process</div><h2>From payslip to <em>peace of mind.</em></h2><p>No jargon. No pressure. Just four clear steps to a better understanding of your options.</p></div><div className="steps"><div><span>01</span><FileText /><h3>Share your details</h3><p>Tell us a little about your income and current obligations.</p></div><div><span>02</span><BarChart3 /><h3>We review</h3><p>Our team studies your payslip and finds the right path.</p></div><div><span>03</span><Landmark /><h3>See your options</h3><p>We explain suitable offers clearly, without the fine print.</p></div><div><span>04</span><ShieldCheck /><h3>Move forward</h3><p>Choose what works for you. We support your application.</p></div></div></section>
 
@@ -145,7 +147,7 @@ export default function Page() {
 
       <section className="section faqs" id="faqs"><div className="section-intro"><div className="eyebrow">Questions, answered</div><h2>Good decisions<br /><em>start with clarity.</em></h2></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? 'faq is-open' : 'faq'} key={question}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span>{openFaq === index ? <Minus size={19} /> : <ChevronDown size={19} />}</button>{openFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
-      <footer id="contact"><div className="footer-main"><a href="#home" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><a href="#apply" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div><div className="footer-bottom"><span>© 2026 Optimum Consult LTD</span><span>Confidentiality · Transparency · Care</span></div></footer>
+      <footer id="contact"><div className="footer-main"><a href="#home" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><div className="footer-contact"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a><a href="tel:0257859442" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div></div><div className="footer-bottom"><span>© 2026 Optimum Consult LTD</span><span>Confidentiality · Transparency · Care</span></div></footer>
       <ChatWidget />
     </main>
   )
