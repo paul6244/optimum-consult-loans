@@ -14,6 +14,17 @@ const openrouter = createOpenAI({
 
 export const maxDuration = 30
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  })
+}
+
 export async function POST(request: Request) {
   try {
     const { messages }: { messages: UIMessage[] } = await request.json()
@@ -45,9 +56,15 @@ GUIDELINES:
       messages: await convertToModelMessages(messages),
     })
 
-    return createUIMessageStreamResponse({
+    const response = createUIMessageStreamResponse({
       stream: toUIMessageStream({ stream: result.stream }),
     })
+    
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+    
+    return response
   } catch (error) {
     console.error('Chat API error:', error)
     return new Response(JSON.stringify({ error: 'Failed to process chat request' }), {
@@ -55,7 +72,10 @@ GUIDELINES:
       headers: { 
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
       }
     })
   }

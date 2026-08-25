@@ -61,35 +61,28 @@ export default function Page() {
   }, [])
   const affordability = Math.max(0, deductions)
   const qualification = useMemo(() => {
-    try {
-      if (salary < 0 || deductions < 0 || balances < 0 || fees < 0) {
-        setCalculatorError('Values cannot be negative')
-        return 0
-      }
-      
-      if (salary > 1000000 || deductions > 1000000 || balances > 1000000) {
-        setCalculatorError('Please enter reasonable values')
-        return 0
-      }
-      
-      setCalculatorError('')
-      const baseAmount = deductions + (balances > 0 ? balances : 0)
-      const baseQualification = baseAmount / 0.0244
-      const thousands = Math.floor(baseQualification / 1000)
-      const remainder = baseQualification % 1000
-      let roundedQualification
-      if (remainder > 501) {
-        roundedQualification = (thousands * 1000) + 500
-      } else {
-        roundedQualification = thousands * 1000
-      }
-      return roundedQualification * 0.85
-    } catch (error) {
-      setCalculatorError('Calculation error. Please check your values.')
-      console.error('Calculator error:', error)
-      return 0
+    const baseAmount = deductions + (balances > 0 ? balances : 0)
+    const baseQualification = baseAmount / 0.0244
+    const thousands = Math.floor(baseQualification / 1000)
+    const remainder = baseQualification % 1000
+    let roundedQualification
+    if (remainder > 501) {
+      roundedQualification = (thousands * 1000) + 500
+    } else {
+      roundedQualification = thousands * 1000
     }
-  }, [deductions, balances, salary, fees])
+    return roundedQualification * 0.85
+  }, [deductions, balances])
+
+  useEffect(() => {
+    if (salary < 0 || deductions < 0 || balances < 0 || fees < 0) {
+      setCalculatorError('Values cannot be negative')
+    } else if (salary > 1000000 || deductions > 1000000 || balances > 1000000) {
+      setCalculatorError('Please enter reasonable values')
+    } else {
+      setCalculatorError('')
+    }
+  }, [salary, deductions, balances, fees])
   const takeHome = Math.max(0, qualification - balances)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -109,8 +102,12 @@ export default function Page() {
     
     try {
       const message = `New consultation request:%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}%0A%0ASent from Optimum Consult LTD website`
-      window.open(`https://wa.me/233257859442?text=${message}`, '_blank')
-      setSubmitted(true)
+      const whatsappUrl = `https://wa.me/233257859442?text=${encodeURIComponent(message)}`
+      
+      if (typeof window !== 'undefined') {
+        window.open(whatsappUrl, '_blank')
+        setSubmitted(true)
+      }
     } catch (error) {
       setFormError('Failed to open WhatsApp. Please try again or call us directly.')
       console.error('Form submission error:', error)
