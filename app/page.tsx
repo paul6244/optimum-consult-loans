@@ -24,7 +24,7 @@ import {
   Zap,
 } from 'lucide-react'
 
-const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amanse Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
+const lenders = ['Consolidated Bank', 'Fidelity Bank', 'GCB Bank', 'Stanbic Bank', 'Absa Bank', 'Bayport Savings and Loans', 'Izwe Savings and Loans', 'Dalex Finance', 'TF Financial Services', 'Leshego Savings and Loans', 'Amansie Community Bank', 'Adansi Community Bank', 'National Investment Bank', 'Teachers Fund']
 const rotatingMessages = [
   'Less debt',
   'More savings',
