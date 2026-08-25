@@ -12,7 +12,14 @@ export const metadata: Metadata = {
   description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.'
 }
 
-export const viewport: Viewport = { colorScheme: 'light', themeColor: '#f6f5ef' }
+export const viewport: Viewport = { 
+  colorScheme: 'light', 
+  themeColor: '#f6f5ef',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
+}
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en" className="bg-background"><body className={`${inter.variable} ${fraunces.variable} antialiased`}><ErrorBoundary>{children}</ErrorBoundary>{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>

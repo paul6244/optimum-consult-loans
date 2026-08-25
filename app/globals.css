@@ -29,3 +29,33 @@ footer { background: #192720; color: #eef4ed; padding: 55px 8vw 20px; }.footer-m
 @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 @keyframes textFade { 0%, 100% { opacity: 1; transform: translateY(0); } 50% { opacity: 0; transform: translateY(-5px); } }
 .rotating-text { animation: textFade 3s ease-in-out infinite; display: inline-block; }
+
+/* iOS Safari fixes */
+@supports (-webkit-touch-callout: none) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  input, textarea, button {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  
+  .chat-panel {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .chat-messages {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  button, a {
+    touch-action: manipulation;
+  }
+  
+  .chat-launcher {
+    touch-action: manipulation;
+  }
+}

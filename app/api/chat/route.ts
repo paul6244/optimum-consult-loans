@@ -52,7 +52,11 @@ GUIDELINES:
     console.error('Chat API error:', error)
     return new Response(JSON.stringify({ error: 'Failed to process chat request' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+      }
     })
   }
 }
