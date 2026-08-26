@@ -70,14 +70,6 @@ export default function ServicesPage() {
         </div>
       )}
 
-      <section className="section" style={{ paddingTop: '100px' }}>
-        <div className="section-intro centered">
-          <div className="eyebrow"><Sparkles size={15} /> Our Services</div>
-          <h1>Your finances,<br /><em>made simpler.</em></h1>
-          <p>One conversation can change how you feel about your payslip. Our team brings clarity to the numbers and confidence to your next step.</p>
-        </div>
-      </section>
-
       <section className="section" style={{ background: '#e9eee5' }}>
         <div className="service-grid">
           {services.map((service, index) => (

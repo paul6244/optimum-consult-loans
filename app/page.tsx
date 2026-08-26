@@ -122,7 +122,7 @@ export default function Page() {
       <header className="site-header">
         <a href="#home" className="brand" aria-label="Optimum Consult LTD home"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a>
         <nav className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-label="Main navigation">
-          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="/services" onClick={() => setMenuOpen(false)}>Our services</a><a href="#faqs" onClick={() => setMenuOpen(false)}>FAQs</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="#services" onClick={() => setMenuOpen(false)}>Our services</a><a href="#faqs" onClick={() => setMenuOpen(false)}>FAQs</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </nav>
         <a className="header-cta" href="#apply">Check your options <ArrowRight size={16} /></a>
         <button className="menu-button" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
