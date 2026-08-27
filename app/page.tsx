@@ -54,11 +54,29 @@ export default function Page() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' })
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [formError, setFormError] = useState('')
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const carouselImages = [
+    '/image/10489136.jpg',
+    '/image/images.jpg',
+    '/image/images (1).jpg',
+    '/image/images (2).jpg',
+    '/image/images (3).jpg',
+    '/image/images (4).jpg',
+    '/image/images (5).jpg'
+  ]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessageIndex(prev => (prev + 1) % rotatingMessages.length)
     }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % carouselImages.length)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
   const affordability = Math.max(0, deductions)
@@ -147,6 +165,27 @@ export default function Page() {
       </section>
 
       <section className="proof-strip"><div><strong>GHS 45M+</strong><span>Loans reviewed</span></div><div><strong>2,000+</strong><span>Workers supported</span></div><div><strong>14</strong><span>Trusted bank partners</span></div><div><strong>100%</strong><span>Confidential process</span></div></section>
+
+      <section className="image-carousel">
+        {carouselImages.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Carousel image ${index + 1}`}
+            className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
+          />
+        ))}
+        <div className="carousel-dots">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === currentImageIndex ? 'active' : ''}`}
+              onClick={() => setCurrentImageIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
 
       <section className="section services" id="services"><div className="section-intro"><div className="eyebrow">What we do</div><h2>Your finances,<br /><em>made simpler.</em></h2><p>One conversation can change how you feel about your payslip. Our team brings clarity to the numbers and confidence to your next step.</p></div><div className="service-grid"><article className="service-card featured"><div className="icon-box"><Sparkles /></div><h3>Instant loan</h3><p>Your remaining afford for the month shall qualify you for a loan amount of your choice with corresponding duration and deduction based on the affordability.</p><a href="#apply">Get instant loan <ArrowRight size={15} /></a></article><article className="service-card"><div className="icon-box"><Banknote /></div><h3>Loan consolidation</h3><p>Combine multiple repayments into one manageable plan, potentially freeing up more cash every month.</p><a href="#estimator">Explore this option <ArrowRight size={15} /></a></article><article className="service-card featured"><div className="icon-box"><ArrowRight /></div><h3>Salary Account switch</h3><p>Get your internal loans in salary account paid off with the loans on your payslip, freeing up your affordability and increasing your net salary while changing the bank for your salary account.</p><a href="#apply">Switch account <ArrowRight size={15} /></a></article></div></section>
 
