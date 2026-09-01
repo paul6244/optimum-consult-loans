@@ -33,8 +33,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Optimum Consult LTD',
-    url: 'https://optimumconsultltd.com',
-    logo: 'https://optimumconsultltd.com/icon.png',
+    url: 'https://www.optimumconsult.site',
+    logo: 'https://www.optimumconsult.site/icon.png',
     description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.',
     contactPoint: {
       '@type': 'ContactPoint',

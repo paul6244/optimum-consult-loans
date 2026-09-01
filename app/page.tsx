@@ -82,7 +82,7 @@ export default function Page() {
   const affordability = Math.max(0, deductions)
   const qualification = useMemo(() => {
     const baseAmount = deductions + (balances > 0 ? balances : 0)
-    const baseQualification = baseAmount / 0.0244
+    const baseQualification = baseAmount / 0.0241
     const thousands = Math.floor(baseQualification / 1000)
     const remainder = baseQualification % 1000
     let roundedQualification
