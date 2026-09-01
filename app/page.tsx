@@ -121,7 +121,7 @@ export default function Page() {
     }
     
     try {
-      const message = `New consultation request:%0A%0A*Name:* ${formData.name}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}%0A%0ASent from Optimum Consult LTD website`
+      const message = `New consultation request:\n\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nMessage: ${formData.message}\n\nSent from Optimum Consult LTD website`
       const whatsappUrl = `https://wa.me/233257859442?text=${encodeURIComponent(message)}`
       
       if (typeof window !== 'undefined') {

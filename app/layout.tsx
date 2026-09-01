@@ -9,7 +9,10 @@ const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces' })
 
 export const metadata: Metadata = {
   title: 'Optimum Consult LTD | Clearer financial decisions',
-  description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.'
+  description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.',
+  verification: {
+    google: 'vP29eWvKRUbFzT_RON2TOmNP8o4PIanpz192qa-2nbg'
+  }
 }
 
 export const viewport: Viewport = { 
