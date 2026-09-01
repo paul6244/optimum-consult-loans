@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.',
   verification: {
     google: 'vP29eWvKRUbFzT_RON2TOmNP8o4PIanpz192qa-2nbg'
+  },
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png'
   }
 }
 
@@ -25,5 +29,32 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className="bg-background"><body className={`${inter.variable} ${fraunces.variable} antialiased`}><ErrorBoundary>{children}</ErrorBoundary>{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Optimum Consult LTD',
+    url: 'https://optimumconsultltd.com',
+    logo: 'https://optimumconsultltd.com/icon.png',
+    description: 'Trusted payslip loan consolidation and financial guidance for CAGD workers in Ghana.',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+233-257-859-442',
+      contactType: 'customer service'
+    }
+  }
+
+  return (
+    <html lang="en" className="bg-background">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className={`${inter.variable} ${fraunces.variable} antialiased`}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+      </body>
+    </html>
+  )
 }
