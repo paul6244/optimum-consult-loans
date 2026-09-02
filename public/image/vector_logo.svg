@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#000000" />
+  
+  <!-- Parallelogram 1 (Dark Blue) -->
+  <polygon points="480,105 480,365 30,540 30,280" fill="#003399" />
+  
+  <!-- Parallelogram 2 (Dark Red) -->
+  <polygon points="735,115 735,375 290,520 290,260" fill="#b3001b" />
+  
+  <!-- Parallelogram 3 (Bright Red) -->
+  <polygon points="970,75 970,335 520,535 520,275" fill="#ff1a1a" />
+</svg>
