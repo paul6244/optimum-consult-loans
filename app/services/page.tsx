@@ -45,7 +45,7 @@ export default function ServicesPage() {
     <main>
       <div className="topline"><span>Trusted guidance for Controller & Accountant-General&apos;s Department (CAGD) workers</span><span className="topline-right"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a></span></div>
       <header className="site-header">
-        <a href="/" className="brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="48" height="48" /></span><span>OPTIMUM<span>CONSULT LTD</span></span></a>
+        <a href="/" className="brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="48" height="48" loading="lazy" /></span><span>OPTIMUM<span>CONSULT LTD</span></span></a>
         <nav className="nav-links">
           <a href="/">Home</a>
           <a href="/services" className="active">Services</a>
@@ -101,7 +101,7 @@ export default function ServicesPage() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><div className="footer-contact"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a><a href="tel:0257859442" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div></div>
+        <div className="footer-main"><a href="/" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" loading="lazy" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><div className="footer-contact"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a><a href="tel:0257859442" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div></div>
         <div className="footer-bottom"><span>© 2026 Optimum Consult LTD</span><span>Confidentiality · Transparency · Care</span></div>
       </footer>
       <ChatWidget />

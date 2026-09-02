@@ -172,6 +172,7 @@ export default function Page() {
             key={index}
             src={image}
             alt={`Carousel image ${index + 1}`}
+            loading="lazy"
             className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
           />
         ))}
@@ -199,7 +200,7 @@ export default function Page() {
 
       <section className="section faqs" id="faqs"><div className="section-intro"><div className="eyebrow">Questions, answered</div><h2>Good decisions<br /><em>start with clarity.</em></h2></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={openFaq === index ? 'faq is-open' : 'faq'} key={question}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span>{openFaq === index ? <Minus size={19} /> : <ChevronDown size={19} />}</button>{openFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
-      <footer id="contact"><div className="footer-main"><a href="#home" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><div className="footer-contact"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a><a href="tel:0257859442" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div></div><div className="footer-bottom"><span>© 2026 Optimum Consult LTD</span><span>Confidentiality · Transparency · Care</span></div></footer>
+      <footer id="contact"><div className="footer-main"><a href="#home" className="brand footer-brand"><span className="brand-mark"><img src="/icon.png" alt="Optimum Consult LTD Logo" width="64" height="64" loading="lazy" /></span><span>OPTIMUM<span>CONSULT LTD</span></span><span className="brand-motto">We are the lifeline to your credit situation</span></a><p>Clearer financial decisions<br />for the people who keep Ghana moving.</p><div className="footer-contact"><a href="tel:0257859442" className="phone-link"><Phone size={14} /> 0257859442</a><a href="tel:0257859442" className="button button-outline">Talk to a consultant <ArrowRight size={16} /></a></div></div><div className="footer-bottom"><span>© 2026 Optimum Consult LTD</span><span>Confidentiality · Transparency · Care</span></div></footer>
       <ChatWidget />
     </main>
   )
